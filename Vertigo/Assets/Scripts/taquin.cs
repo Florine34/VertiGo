@@ -7,10 +7,11 @@ using UnityEngine;
 public class taquin : MonoBehaviour
 {
     public int n;
+    public float speed;
     public GameObject modele;
     public Material highlight;
-    public Material baseMaterial; 
-    private Animation animation;
+    public Material baseMaterial;
+    public Texture2D[] images;
     private GameObject[][] tuiles;
     private bool locked;
     [HideInInspector]
@@ -32,10 +33,9 @@ public class taquin : MonoBehaviour
         locked = false;
         float border = 0.01f;
         float w = transform.GetChild(0).localScale.x / n - border, h = transform.GetChild(0).localScale.y / n - border;
-        float x = transform.GetChild(0).position.x - transform.GetChild(0).localScale.x/2f + w/2f + border/2f, y = transform.GetChild(0).position.y + transform.GetChild(0).localScale.y/2f - h/2f - border/2f;
+        float x = transform.GetChild(0).localPosition.x - transform.GetChild(0).localScale.x / 2f + w / 2f + border / 2f/* - border*/;  /* -  ;*/
+        float y = transform.GetChild(0).localPosition.y + transform.GetChild(0).localScale.y / 2f - h / 2f - border / 2f/* + border*/;  /* +  ;*/
         int[] numbers = GenNumberSequence(n*n);
-
-        animation = GetComponent<Animation>();
 
         // init tiles
         if (modele != null) {
@@ -47,17 +47,19 @@ public class taquin : MonoBehaviour
                     // create the new tile from left to right
                     tuiles[i][j] = Instantiate(modele);
                     tuiles[i][j].transform.SetParent(transform.GetChild(1));
-                    tuiles[i][j].layer = 9;
-                    tuiles[i][j].transform.position = new Vector3(x + j*(w+border), y - i*(h + border), transform.position.z - 0.015f);
+                    tuiles[i][j].transform.localPosition = new Vector3(x + j*(w+border), y - i*(h + border), -0.015f);
                     tuiles[i][j].transform.localScale = new Vector3(w, h, border);
+                    tuiles[i][j].layer = 9;
                     // assign a number different between each tiles
                     tuiles[i][j].GetComponent<Tuile>().value = numbers[i*n+j];
                     tuiles[i][j].transform.GetChild(0).gameObject.GetComponent<TextMesh>().text = numbers[i*n+j].ToString();
+                    tuiles[i][j].GetComponent<MeshRenderer>().material.mainTexture = images[j*n+i];
                     tuiles[i][j].GetComponent<Tuile>().i = i;
                     tuiles[i][j].GetComponent<Tuile>().j = j;
                     tuiles[i][j].GetComponent<Tuile>().parent = this;
                     if (tuiles[i][j].GetComponent<Tuile>().value == 0) {
                         tuiles[i][j].GetComponent<MeshRenderer>().enabled = false;
+                        tuiles[i][j].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
                     }
                 }
             }
@@ -70,57 +72,75 @@ public class taquin : MonoBehaviour
 
         if (!locked)
         {
-            if (begini > -1 && beginj > -1)
-            {
-                //Debug.Log("Touché1? : " + begini + " " + beginj);
-                tuiles[begini][beginj].GetComponent<Renderer>().material.color = Color.red;
-
-                if (begini-1 >= 0)
-                    tuiles[begini-1][beginj].GetComponent<Renderer>().material = highlight;
+            if (begini > -1 && beginj > -1) {
+                if (begini - 1 >= 0)
+                    tuiles[begini - 1][beginj].GetComponent<Renderer>().materials = new Material[2] {tuiles[begini - 1][beginj].GetComponent<Renderer>().material, highlight};
                 if (beginj-1 >= 0)
-                    tuiles[begini][beginj-1].GetComponent<Renderer>().material = highlight;
+                    tuiles[begini][beginj-1].GetComponent<Renderer>().materials = new Material[2] {tuiles[begini][beginj-1].GetComponent<Renderer>().material, highlight};
                 if (begini+1 < n)
-                    tuiles[begini+1][beginj].GetComponent<Renderer>().material = highlight;
+                    tuiles[begini+1][beginj].GetComponent<Renderer>().materials = new Material[2] {tuiles[begini+1][beginj].GetComponent<Renderer>().material, highlight};
                 if (beginj+1 < n)
-                    tuiles[begini][beginj+1].GetComponent<Renderer>().material = highlight;
+                    tuiles[begini][beginj+1].GetComponent<Renderer>().materials = new Material[2] {tuiles[begini][beginj+1].GetComponent<Renderer>().material, highlight};
             }
 
-            if (endi > -1 && endj > -1)
-            {
-                //Debug.Log("TOOOOUUUUUCHEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE? : " + endi + " " + endj);
-                tuiles[endi][endj].GetComponent<Renderer>().material.color = Color.red;
-
+            if (endi > -1 && endj > -1) {
                 if (begini - 1 >= 0)
-                    tuiles[begini - 1][beginj].GetComponent<Renderer>().material = baseMaterial;
+                    tuiles[begini - 1][beginj].GetComponent<Renderer>().materials = new Material[1] {tuiles[begini - 1][beginj].GetComponent<Renderer>().material};
                 if (beginj - 1 >= 0)
-                    tuiles[begini][beginj - 1].GetComponent<Renderer>().material = baseMaterial;
+                    tuiles[begini][beginj - 1].GetComponent<Renderer>().materials = new Material[1] {tuiles[begini][beginj-1].GetComponent<Renderer>().material};
                 if (begini + 1 < n)
-                    tuiles[begini + 1][beginj].GetComponent<Renderer>().material = baseMaterial;
+                    tuiles[begini + 1][beginj].GetComponent<Renderer>().materials = new Material[1] {tuiles[begini + 1][beginj].GetComponent<Renderer>().material};
                 if (beginj + 1 < n)
-                    tuiles[begini][beginj + 1].GetComponent<Renderer>().material = baseMaterial;
+                    tuiles[begini][beginj + 1].GetComponent<Renderer>().materials = new Material[1] {tuiles[begini][beginj+1].GetComponent<Renderer>().material};
             }
 
             if (begini > -1 && beginj > -1 && endi > -1 && endj > -1)
             {
-                AnimationCurve curvex;
+                Animation anim1 = tuiles[begini][beginj].GetComponent<Animation>();
+                Animation anim2 = tuiles[endi][endj].GetComponent<Animation>();
+                AnimationCurve curvex, curvey, curvez;
+                float x1, y1, z1, x2, y2, z2;
+                AnimationClip newAnim;
                 GameObject exch = tuiles[begini][beginj];
-                Vector3 translate1 = new Vector3(tuiles[begini][beginj].transform.position.x - tuiles[endi][endj].transform.position.x,
-                                                tuiles[begini][beginj].transform.position.y - tuiles[endi][endj].transform.position.y,
-                                                tuiles[begini][beginj].transform.position.z - tuiles[endi][endj].transform.position.z);
 
-
-                //Debug.Log("Ok j'échange! " + begini + " " + beginj + "   " + endi + " " + endj);
-
-                // exchange the position
-                //tuiles[begini][beginj].transform.Translate(-translate1, Space.Self);
-                //tuiles[endi][endj].transform.Translate(translate1, Space.Self);
-
-                if (!animation.isPlaying)
+                if (!anim1.isPlaying && !anim2.isPlaying)
                 {
-                    animation.clip.ClearCurves();
-                    curvex = AnimationCurve.Linear(0, /*tuiles[begini][beginj].*/transform.position.x, 1, /*tuiles[endi][endj].*/transform.position.x+2);
-                    animation.clip.SetCurve("", typeof(Transform), "Position.x", curvex);
-                    StartCoroutine(DelayedAnimation());
+                    x1 = tuiles[begini][beginj].transform.localPosition.x;
+                    y1 = tuiles[begini][beginj].transform.localPosition.y;
+                    z1 = tuiles[begini][beginj].transform.localPosition.z;
+                    x2 = tuiles[endi][endj].transform.localPosition.x;
+                    y2 = tuiles[endi][endj].transform.localPosition.y;
+                    z2 = tuiles[endi][endj].transform.localPosition.z;
+
+                    // init the animation clip for the first tile
+                    newAnim = new AnimationClip();
+                    newAnim.legacy = true;
+                    newAnim.name = "exchange";
+                    curvex = AnimationCurve.Linear(0, x1, speed, x2);
+                    curvey = AnimationCurve.Linear(0, y1, speed, y2);
+                    curvez = AnimationCurve.Linear(0, z1, speed, z2);
+                    newAnim.SetCurve("", typeof(Transform), "localPosition.x", curvex);
+                    newAnim.SetCurve("", typeof(Transform), "localPosition.y", curvey);
+                    newAnim.SetCurve("", typeof(Transform), "localPosition.z", curvez);
+                    anim1.AddClip(newAnim, newAnim.name);
+                    anim1.clip = newAnim;
+
+                    // init the animation clip for the second tile
+                    newAnim = new AnimationClip();
+                    newAnim.name = "exchange";
+                    newAnim.legacy = true;
+                    curvex = AnimationCurve.Linear(0, x2, speed, x1);
+                    curvey = AnimationCurve.Linear(0, y2, speed, y1);
+                    curvez = AnimationCurve.Linear(0, z2, speed, z1);
+                    newAnim.SetCurve("", typeof(Transform), "localPosition.x", curvex);
+                    newAnim.SetCurve("", typeof(Transform), "localPosition.y", curvey);
+                    newAnim.SetCurve("", typeof(Transform), "localPosition.z", curvez);
+                    anim2.AddClip(newAnim, newAnim.name);
+                    anim2.clip = newAnim;
+
+                    // play animations
+                    anim1.Play();
+                    anim2.Play();
 
                     // exchange the tiles between them
                     tuiles[begini][beginj] = tuiles[endi][endj];
@@ -129,22 +149,14 @@ public class taquin : MonoBehaviour
                     tuiles[endi][endj] = exch;
                     tuiles[endi][endj].GetComponent<Tuile>().i = endi;
                     tuiles[endi][endj].GetComponent<Tuile>().j = endj;
-
-                    // change material
-                    tuiles[begini][beginj].GetComponent<Renderer>().material = baseMaterial;
-                    tuiles[endi][endj].GetComponent<Renderer>().material = baseMaterial;
-
-
-                    //Debug.Log("Probleme1? (" + tuiles[begini][beginj].GetComponent<Tuile>().i + " " + tuiles[begini][beginj].GetComponent<Tuile>().j + ")   (" + tuiles[endi][endj].GetComponent<Tuile>().i + " " + tuiles[endi][endj].GetComponent<Tuile>().j + ")");
+                    
                     begini = -1; beginj = -1;
                     endi = -1; endj = -1;
-                    //Debug.Log("Probleme2? (" + begini + " " + beginj + ")   (" + endi + " " + endj + ")");
                 }
             }
 
-            // determine if the player won the game  
-            if (win())
-            {
+            // determine if the player won the game
+            if (win()) {
                 transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = new Color(1, 0.5f, 0);
                 locked = true;
             };
@@ -187,11 +199,5 @@ public class taquin : MonoBehaviour
             return false;
 
         return true;
-    }
-
-
-    private IEnumerator DelayedAnimation() {
-        yield return new WaitForSeconds(1);
-        animation.Play();
     }
 }

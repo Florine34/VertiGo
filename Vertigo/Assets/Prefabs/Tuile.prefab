@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3325699317278176102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.40621653, y: 0.4894916, z: 1}
+  m_LocalScale: {x: 0.101692, y: 0.13183184, z: 1}
   m_Children: []
   m_Father: {fileID: 8081788257144318273}
   m_RootOrder: 0
@@ -84,13 +84,13 @@ TextMesh:
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 0
+  m_FontSize: 75
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 12800000, guid: 4c90d3c4d98a33647872e06a6f654f9f, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4278256033
+    rgba: 4294967295
 --- !u!1 &3979229031915891584
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 2169891124859763288}
   - component: {fileID: 4402014188154363138}
   - component: {fileID: 4270329459679507470}
+  - component: {fileID: 9138402329584943310}
   m_Layer: 0
   m_Name: Tuile
   m_TagString: Untagged
@@ -201,3 +202,18 @@ MonoBehaviour:
   i: 0
   j: 0
   selected: 0
+--- !u!111 &9138402329584943310
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3979229031915891584}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0

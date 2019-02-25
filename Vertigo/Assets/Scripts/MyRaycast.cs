@@ -7,6 +7,7 @@ using UnityEngine;
 public class MyRaycast : MonoBehaviour
 {
     public Transform depart;
+    public float distance;
     private bool active;
     private bool zeroSelected;
     private int zeroi, zeroj;
@@ -32,7 +33,7 @@ public class MyRaycast : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0)) {
             if (active) {
-                if (Physics.Raycast(center, out hit, 1, mask))
+                if (Physics.Raycast(center, out hit, distance, mask))
                 {      // new Ray(depart.position, inverse * depart.forward)
 
                     Debug.DrawRay(center.origin, center.direction.normalized * hit.distance, new Color(1, 0.5f, 0));      // depart.position, inverse * depart.forward * hit.distance
@@ -62,7 +63,7 @@ public class MyRaycast : MonoBehaviour
         }
         
         if (active) {
-            Debug.DrawRay(center.origin, center.direction.normalized * 1, new Color(1, 0, 0));      // depart.position, inverse * depart.forward * 1
+            Debug.DrawRay(center.origin, center.direction.normalized * distance, new Color(1, 0, 0));      // depart.position, inverse * depart.forward * 1
         }
     }
 
