@@ -20,7 +20,7 @@ public class ChangeColorPaint : MonoBehaviour
     void Update()
     {
         //Press space to change the Sprite of the Image
-        if (Input.GetKeyDown(KeyCode.C))
+		if (OVRInput.GetDown(OVRInput.Button.One)/*Input.GetKeyDown("Oculus_CrossPlatform_Button2")*/)
         {
             counter++;
             m_Image.sprite = m_Sprite[counter];

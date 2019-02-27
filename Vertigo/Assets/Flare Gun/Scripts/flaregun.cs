@@ -17,7 +17,7 @@ public class flaregun : MonoBehaviour {
 	void Update () 
 	{
 
-        if (Input.GetButtonDown("Fire1") && !GetComponent<Animation>().isPlaying)
+		if (/*Input.GetButtonDown("Oculus_CrossPlatform_PrimaryHandTrigger")*/OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0 && !GetComponent<Animation>().isPlaying)
         {
             Shoot();
         }
