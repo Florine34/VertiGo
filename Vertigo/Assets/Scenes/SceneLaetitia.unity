@@ -730,8 +730,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6569054
-  m_Center: {x: -0.0074214623, y: 0, z: 0}
+  m_Radius: 0.53337437
+  m_Center: {x: -0.011291232, y: 0, z: 0}
 --- !u!23 &199194769
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -793,7 +793,8 @@ MonoBehaviour:
   m_snapPosition: 0
   m_snapOrientation: 0
   m_snapOffset: {fileID: 0}
-  m_grabPoints: []
+  m_grabPoints:
+  - {fileID: 199194768}
 --- !u!135 &199194772
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -805,8 +806,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.46652454
+  m_Center: {x: -0.02410614, y: 0, z: 0}
 --- !u!1001 &202535322
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2012,7 +2013,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 2d9b72a5525e5ba4b960d7deede72e91, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.6679999
+      value: 1.35
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 2d9b72a5525e5ba4b960d7deede72e91, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3796,15 +3797,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3337cf33360f26942b8eeb615e07b498, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.2045
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3337cf33360f26942b8eeb615e07b498, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.2045
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3337cf33360f26942b8eeb615e07b498, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.2045
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 3337cf33360f26942b8eeb615e07b498, type: 3}
       propertyPath: m_Materials.Array.data[0]
