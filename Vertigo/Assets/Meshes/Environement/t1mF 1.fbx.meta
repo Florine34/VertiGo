@@ -1,14 +1,22 @@
 fileFormatVersion: 2
-guid: 99c6c18cc85756d4d84d936e49f3a3b1
+guid: 02397532e3cb2924492e76c620a7ade1
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: Material
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Cube
+    100000: Fenetre
+    100002: MurGauche.002
+    100004: //RootNode
+    400000: Fenetre
+    400002: MurGauche.002
+    400004: //RootNode
+    2100000: No Name
+    2300000: Fenetre
+    2300002: MurGauche.002
+    3300000: Fenetre
+    3300002: MurGauche.002
+    4300000: Fenetre
+    4300002: MurGauche.002
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1
