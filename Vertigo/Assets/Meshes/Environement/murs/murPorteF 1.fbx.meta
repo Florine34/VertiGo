@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 53b0810c323120e4d88b0c0397363957
+guid: 53cf9b581d581af4091da0843a4224a7
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,8 +8,7 @@ ModelImporter:
     2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Plane
-    2186277476908879412: ImportLogs
+    4300000: murPorte
   externalObjects: {}
   materials:
     importMaterials: 1

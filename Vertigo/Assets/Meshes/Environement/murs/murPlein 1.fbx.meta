@@ -1,19 +1,14 @@
 fileFormatVersion: 2
-guid: 6853c8eb4bb375d4cb964174ceaddfab
+guid: df3b5dc4b6835ed47b4f0f2aa60b8f10
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Camera
-    100002: Cube.001
-    100004: //RootNode
-    400000: Camera
-    400002: Cube.001
-    400004: //RootNode
-    2000000: Camera
+    100000: //RootNode
+    400000: //RootNode
     2100000: No Name
-    2300000: Cube.001
-    3300000: Cube.001
-    4300000: Cube.001
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: MurGauche
   externalObjects: {}
   materials:
     importMaterials: 1
