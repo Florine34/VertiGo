@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class taquin : MonoBehaviour
     private GameObject[][] tuiles;
     private bool locked;
     [HideInInspector]
-    public int begini, beginj;
+    public int zeroi, zeroj;
     [HideInInspector]
     public int endi, endj;
 
@@ -23,7 +24,6 @@ public class taquin : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        begini = -1; beginj = -1;
         endi = -1; endj = -1;
 
         // the taquin game must have a min dimension of 3 otherwise not interesting
@@ -60,130 +60,205 @@ public class taquin : MonoBehaviour
                     if (tuiles[i][j].GetComponent<Tuile>().value == 0) {
                         tuiles[i][j].GetComponent<MeshRenderer>().enabled = false;
                         tuiles[i][j].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
+                        zeroi = i; zeroj = j;
                     }
                 }
             }
 
+            EnableHighLightTiles();
         }
     }
 
+
     // Update is called once per frame
     void Update() {
+        int offseti = 0, offsetj = 0, offset, k1, l1, k2, l2;
+        float x, y, z;
 
-        if (!locked)
-        {
-            if (begini > -1 && beginj > -1) {
-                if (begini - 1 >= 0)
-                    tuiles[begini - 1][beginj].GetComponent<Renderer>().materials = new Material[2] {tuiles[begini - 1][beginj].GetComponent<Renderer>().material, highlight};
-                if (beginj-1 >= 0)
-                    tuiles[begini][beginj-1].GetComponent<Renderer>().materials = new Material[2] {tuiles[begini][beginj-1].GetComponent<Renderer>().material, highlight};
-                if (begini+1 < n)
-                    tuiles[begini+1][beginj].GetComponent<Renderer>().materials = new Material[2] {tuiles[begini+1][beginj].GetComponent<Renderer>().material, highlight};
-                if (beginj+1 < n)
-                    tuiles[begini][beginj+1].GetComponent<Renderer>().materials = new Material[2] {tuiles[begini][beginj+1].GetComponent<Renderer>().material, highlight};
-            }
+        // block the game if game is over
+        if (!locked) {
 
             if (endi > -1 && endj > -1) {
-                if (begini - 1 >= 0)
-                    tuiles[begini - 1][beginj].GetComponent<Renderer>().materials = new Material[1] {tuiles[begini - 1][beginj].GetComponent<Renderer>().material};
-                if (beginj - 1 >= 0)
-                    tuiles[begini][beginj - 1].GetComponent<Renderer>().materials = new Material[1] {tuiles[begini][beginj-1].GetComponent<Renderer>().material};
-                if (begini + 1 < n)
-                    tuiles[begini + 1][beginj].GetComponent<Renderer>().materials = new Material[1] {tuiles[begini + 1][beginj].GetComponent<Renderer>().material};
-                if (beginj + 1 < n)
-                    tuiles[begini][beginj + 1].GetComponent<Renderer>().materials = new Material[1] {tuiles[begini][beginj+1].GetComponent<Renderer>().material};
-            }
-
-            if (begini > -1 && beginj > -1 && endi > -1 && endj > -1)
-            {
-                Animation anim1 = tuiles[begini][beginj].GetComponent<Animation>();
-                Animation anim2 = tuiles[endi][endj].GetComponent<Animation>();
                 AnimationCurve curvex, curvey, curvez;
-                float x1, y1, z1, x2, y2, z2;
                 AnimationClip newAnim;
-                GameObject exch = tuiles[begini][beginj];
+                Animation anim;
+                GameObject exch;
+                List<Vector3> dest = new List<Vector3>();
+                List<Animation> anims = new List<Animation>();
 
-                if (!anim1.isPlaying && !anim2.isPlaying)
+                // calculate number of deplacement
+                if (zeroi != endi) {
+                    offseti = endi - zeroi;
+                    offset = offseti;
+                    offseti = offseti / Math.Abs(offseti);
+                } else {
+                    offsetj = endj - zeroj;
+                    offset = offsetj;
+                    offsetj = offsetj / Math.Abs(offsetj);
+                }
+
+                // get position of all tiles which will move and their animation component
+                dest.Add(new Vector3(tuiles[zeroi][zeroj].transform.localPosition.x, tuiles[zeroi][zeroj].transform.localPosition.y, tuiles[zeroi][zeroj].transform.localPosition.z));
+                anims.Add(tuiles[zeroi][zeroj].GetComponent<Animation>());
+                for (int d = 1; d <= offset; d++) {
+
+                    if (offseti != 0) {
+                        d *= offseti;
+                        x = tuiles[zeroi + d][zeroj].transform.localPosition.x;
+                        y = tuiles[zeroi + d][zeroj].transform.localPosition.y;
+                        z = tuiles[zeroi + d][zeroj].transform.localPosition.z;
+                        anim = tuiles[zeroi + d][zeroj].GetComponent<Animation>();
+                    } else {
+                        d *= offsetj;
+                        x = tuiles[zeroi][zeroj + d].transform.localPosition.x;
+                        y = tuiles[zeroi][zeroj + d].transform.localPosition.y;
+                        z = tuiles[zeroi][zeroj + d].transform.localPosition.z;
+                        anim = tuiles[zeroi][zeroj + d].GetComponent<Animation>();
+                    }
+
+                    anims.Add(anim);
+                    dest.Add(new Vector3(x, y, z));
+                    d = Math.Abs(d);
+                }
+
+
+                if (!AnimationPlayed(anims))
                 {
-                    x1 = tuiles[begini][beginj].transform.localPosition.x;
-                    y1 = tuiles[begini][beginj].transform.localPosition.y;
-                    z1 = tuiles[begini][beginj].transform.localPosition.z;
-                    x2 = tuiles[endi][endj].transform.localPosition.x;
-                    y2 = tuiles[endi][endj].transform.localPosition.y;
-                    z2 = tuiles[endi][endj].transform.localPosition.z;
+                    DisableHighLightTiles();  // disable the mark on adjacent tiles 
 
+                    // init the animation clip for each tile except the first
+                    Debug.Log("Animations : " + anims.Count);
+                    for (int a = anims.Count-1; a > 0; a--) {
+                        newAnim = new AnimationClip();
+                        newAnim.legacy = true;
+                        newAnim.name = "exchange";
+                        curvex = AnimationCurve.Linear(0, dest[a].x, speed, dest[a-1].x);
+                        curvey = AnimationCurve.Linear(0, dest[a].y, speed, dest[a-1].y);
+                        curvez = AnimationCurve.Linear(0, dest[a].z, speed, dest[a-1].z);
+                        newAnim.SetCurve("", typeof(Transform), "localPosition.x", curvex);
+                        newAnim.SetCurve("", typeof(Transform), "localPosition.y", curvey);
+                        newAnim.SetCurve("", typeof(Transform), "localPosition.z", curvez);
+                        anims[a].AddClip(newAnim, newAnim.name);
+                        anims[a].clip = newAnim;
+                    }
+                    
                     // init the animation clip for the first tile
                     newAnim = new AnimationClip();
-                    newAnim.legacy = true;
                     newAnim.name = "exchange";
-                    curvex = AnimationCurve.Linear(0, x1, speed, x2);
-                    curvey = AnimationCurve.Linear(0, y1, speed, y2);
-                    curvez = AnimationCurve.Linear(0, z1, speed, z2);
+                    newAnim.legacy = true;
+                    curvex = AnimationCurve.Linear(0, dest[0].x, speed, dest[anims.Count-1].x);
+                    curvey = AnimationCurve.Linear(0, dest[0].y, speed, dest[anims.Count - 1].y);
+                    curvez = AnimationCurve.Linear(0, dest[0].z, speed, dest[anims.Count - 1].z);
                     newAnim.SetCurve("", typeof(Transform), "localPosition.x", curvex);
                     newAnim.SetCurve("", typeof(Transform), "localPosition.y", curvey);
                     newAnim.SetCurve("", typeof(Transform), "localPosition.z", curvez);
-                    anim1.AddClip(newAnim, newAnim.name);
-                    anim1.clip = newAnim;
-
-                    // init the animation clip for the second tile
-                    newAnim = new AnimationClip();
-                    newAnim.name = "exchange";
-                    newAnim.legacy = true;
-                    curvex = AnimationCurve.Linear(0, x2, speed, x1);
-                    curvey = AnimationCurve.Linear(0, y2, speed, y1);
-                    curvez = AnimationCurve.Linear(0, z2, speed, z1);
-                    newAnim.SetCurve("", typeof(Transform), "localPosition.x", curvex);
-                    newAnim.SetCurve("", typeof(Transform), "localPosition.y", curvey);
-                    newAnim.SetCurve("", typeof(Transform), "localPosition.z", curvez);
-                    anim2.AddClip(newAnim, newAnim.name);
-                    anim2.clip = newAnim;
+                    anims[0].AddClip(newAnim, newAnim.name);
+                    anims[0].clip = newAnim;
 
                     // play animations
-                    anim1.Play();
-                    anim2.Play();
+                    PlayAnimations(anims);
 
-                    // exchange the tiles between them
-                    tuiles[begini][beginj] = tuiles[endi][endj];
-                    tuiles[begini][beginj].GetComponent<Tuile>().i = begini;
-                    tuiles[begini][beginj].GetComponent<Tuile>().j = beginj;
-                    tuiles[endi][endj] = exch;
-                    tuiles[endi][endj].GetComponent<Tuile>().i = endi;
-                    tuiles[endi][endj].GetComponent<Tuile>().j = endj;
+                    // exchange each tiles in the matrix
+                    for (int a = 0; a < anims.Count-1; a++) {
+                        if (offseti != 0) {
+                            k1 = a * offseti; l1 = 0;
+                            k2 = (a + 1) * offseti; l2 = 0;
+                        } else {
+                            k1 = 0; l1 = a*offsetj;
+                            k2 = 0; l2 = (a + 1) * offsetj;
+                        }
+
+                        exch = tuiles[zeroi + k1][zeroj + l1];
+                        tuiles[zeroi + k1][zeroj + l1] = tuiles[zeroi + k2][zeroj + l2];
+                        tuiles[zeroi + k1][zeroj + l1].GetComponent<Tuile>().i = zeroi + k2;
+                        tuiles[zeroi + k1][zeroj + l1].GetComponent<Tuile>().j = zeroj + l2;
+                        tuiles[zeroi + k2][zeroj + l2] = exch;
+                        tuiles[zeroi + k2][zeroj + l2].GetComponent<Tuile>().i = zeroi + k1;
+                        tuiles[zeroi + k2][zeroj + l2].GetComponent<Tuile>().j = zeroi + l1;
+                    }
                     
-                    begini = -1; beginj = -1;
+                    zeroi = endi; zeroj = endj;
                     endi = -1; endj = -1;
+
+                    EnableHighLightTiles();
                 }
             }
 
             // determine if the player won the game
             if (win()) {
-                transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = new Color(1, 0.5f, 0);
-                locked = true;
+                DisableHighLightTiles();
+                DisableNumbers();
+                tuiles[zeroi][zeroj].GetComponent<Renderer>().enabled = true;   // shown the missing tile
+                transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = new Color(1, 0.5f, 0);   // mark the taquin object to shown the victory
+                locked = true;    // block the game system
             };
         }
     }
 
 
-    private int[] GenNumberSequence(int limit)
-    {
-        List<int> dejavu = new List<int>();
-        int[] numbers = new int[limit];
-        int currentNumber = 0, rand;
+    private bool AnimationPlayed(List<Animation> anims) {
 
-        Random.InitState((int) System.DateTime.Now.Ticks);
-        for (int i = 0; i < limit; i++)
-        {
-            do {
-                rand = Random.Range(0, limit);
-            } while (dejavu.Contains(rand));
-
-            numbers[rand] = currentNumber++;
-            dejavu.Add(rand);
+        for (int i = 0; i < anims.Count; i++) {
+            if (anims[i].isPlaying) {
+                return true;
+            }
         }
 
-        return numbers;
+        return false;
     }
 
+    private void PlayAnimations(List<Animation> anims)
+    {
+
+        for (int i = 0; i < anims.Count; i++)
+        {
+            if (!anims[i].isPlaying)
+            {
+                anims[i].Play();
+            }
+        }
+    }
+
+    private void EnableHighLightTiles()
+    {
+        for (int i = 1; i <= n-1; i++) {
+            if (zeroi - i >= 0)
+                tuiles[zeroi - i][zeroj].GetComponent<Renderer>().materials = new Material[2] { tuiles[zeroi - i][zeroj].GetComponent<Renderer>().material, highlight };
+            if (zeroj - i >= 0)
+                tuiles[zeroi][zeroj - i].GetComponent<Renderer>().materials = new Material[2] { tuiles[zeroi][zeroj - i].GetComponent<Renderer>().material, highlight };
+            if (zeroi + i < n)
+                tuiles[zeroi + i][zeroj].GetComponent<Renderer>().materials = new Material[2] { tuiles[zeroi + i][zeroj].GetComponent<Renderer>().material, highlight };
+            if (zeroj + i < n)
+                tuiles[zeroi][zeroj + i].GetComponent<Renderer>().materials = new Material[2] { tuiles[zeroi][zeroj + i].GetComponent<Renderer>().material, highlight };
+        }
+    }
+
+
+    private void DisableHighLightTiles()
+    {
+
+        for (int i = 1; i <= n - 1; i++)
+        {
+            if (zeroi - i >= 0)
+                tuiles[zeroi - i][zeroj].GetComponent<Renderer>().materials = new Material[1] { tuiles[zeroi - i][zeroj].GetComponent<Renderer>().material };
+            if (zeroj - i >= 0)
+                tuiles[zeroi][zeroj - i].GetComponent<Renderer>().materials = new Material[1] { tuiles[zeroi][zeroj - i].GetComponent<Renderer>().material };
+            if (zeroi + i < n)
+                tuiles[zeroi + i][zeroj].GetComponent<Renderer>().materials = new Material[1] { tuiles[zeroi + i][zeroj].GetComponent<Renderer>().material };
+            if (zeroj + i < n)
+                tuiles[zeroi][zeroj + i].GetComponent<Renderer>().materials = new Material[1] { tuiles[zeroi][zeroj + i].GetComponent<Renderer>().material };
+        }
+    }
+
+    private void DisableNumbers() {
+
+        for (int i = 0; i < tuiles.Length; i++) {
+            for (int j = 0; j < tuiles.Length; j++) {
+                tuiles[i][j].transform.GetChild(0).gameObject.SetActive(false);
+            }
+        }
+
+    }
 
     private bool win() {
         
@@ -199,5 +274,87 @@ public class taquin : MonoBehaviour
             return false;
 
         return true;
+    }
+
+
+    private int[] GenNumberSequence(int limit)
+    {
+        List<int> dejavu;
+        int[] numbers = new int[limit];
+        int currentNumber = 0, c = 0, rand;
+
+
+        do
+        {
+            // init the value to generate the good number sequence
+            UnityEngine.Random.InitState((int) DateTime.Now.Ticks);
+            dejavu = new List<int>();
+            currentNumber = 0;
+
+            for (int i = 0; i < limit; i++)
+            {
+                do
+                {
+                    rand = UnityEngine.Random.Range(0, limit);
+                } while (dejavu.Contains(rand));
+
+                numbers[rand] = currentNumber++;
+                dejavu.Add(rand);
+            }
+        } while (!IsValid(numbers, (int)(Math.Sqrt(limit))));
+
+        return numbers;
+    }
+
+    private bool IsValid(int[] numbers, int dim) {
+        int size = dim * dim;
+        int[] tmp_numbers = new int[size];
+        int parity = 0, switches = 0, i, exch;
+        String message = "";
+
+        for (i = 0; i < dim; i++)
+        {
+            for (int j = 0; j < dim; j++)
+            {
+                message += numbers[i * dim + j] + " ";
+            }
+            message += "\n";
+        }
+
+        Debug.Log(message);
+
+        // search the box with the value 0
+        for (i = 0; numbers[i] != 0; i++) ;
+        // compute the parity of this box
+        parity = (dim - 1) + (dim - 1) - ((i / dim) + (i % dim));
+
+        // compute the number of switches
+        Array.Copy(numbers, 0, tmp_numbers, 0, size);
+
+        // switch the box with value 0 and the last box in the matrix
+        if (i < size - 1) {
+            exch = tmp_numbers[size-1];
+            tmp_numbers[size - 1] = tmp_numbers[i];
+            tmp_numbers[i] = exch;
+            switches++;
+        }
+
+        // switch boxes as long as the values are not sorted
+        for (i = size - 1; i > 0; i--) {
+            if (tmp_numbers[i - 1] < i) {
+                for (int j = i - 1; j >= 0; j--) {
+                    if (tmp_numbers[j] == i) {
+                        exch = tmp_numbers[j];
+                        tmp_numbers[j] = tmp_numbers[i-1];
+                        tmp_numbers[i-1] = exch;
+                        switches++;
+                    }
+                }
+            }
+        }
+
+        Debug.Log("parity : " + parity  + "   switches : " + switches + "   dim : " + dim);
+
+        return (parity % 2 == 1) ^ (switches % 2 == 1);
     }
 }
