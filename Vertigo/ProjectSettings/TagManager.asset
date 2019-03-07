@@ -7,6 +7,7 @@ TagManager:
   - Fire
   - SphereAColorier
   - SolPiece1
+  - IndiceCode
   layers:
   - Default
   - TransparentFX
