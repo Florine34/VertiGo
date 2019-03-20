@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Move : MonoBehaviour
+
+
+public class MoveBullet : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.GetComponent<Es.InkPainter.InkCanvas>() != null)
