@@ -20,7 +20,8 @@ public class Repop : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("SolPiece1")){
-            gameObject.transform.position = RespawnSphere.transform.position;
+			gameObject.transform.position = RespawnSphere.transform.position;
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero; 
         }
     }
 }
