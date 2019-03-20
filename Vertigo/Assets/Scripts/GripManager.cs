@@ -14,7 +14,7 @@ public class GripManager : MonoBehaviour
     void FixedUpdate()
     {
         var lDevice = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch);
-        var rDevice = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.RTouch);
+        var rDevice = OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger, OVRInput.Controller.RTouch);
 
         bool isGripped = left.canGrip || right.canGrip;
 
