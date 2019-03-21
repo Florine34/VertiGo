@@ -44,17 +44,27 @@ public class Tuile : MonoBehaviour
     void Update() {
 
         if (selected) {
-            if (parent.begini == -1 || parent.beginj == -1) {
-                //Debug.Log("Par ici begin " + i + " " + j + " " + value);
-                parent.begini = i;
-                parent.beginj = j;
-            } else if (parent.begini != i || parent.beginj != j) {
-                //Debug.Log("Par ici end " + i + " " + j + " " + value);
-                parent.endi = i;
-                parent.endj = j;
+
+            if (parent.endi == -1 && parent.endj == -1) {
+                Debug.Log("Acote ? " + Acote(parent.zeroi, parent.zeroj) + "  (zeroi : "+ parent.zeroi + " zeroj : "+parent.zeroj + ")   (i : "+i+" j : "+j+")");
+                if (Acote(parent.zeroi, parent.zeroj)) {
+                    parent.endi = i;
+                    parent.endj = j;
+                }
             }
 
             selected = false;
         }
+    }
+
+    public bool Acote(int zeroi, int zeroj) {
+
+        if (i == zeroi && j != zeroj)
+            return true;
+
+        if (j == zeroj && i != zeroi)
+            return true;
+
+        return false;
     }
 }
