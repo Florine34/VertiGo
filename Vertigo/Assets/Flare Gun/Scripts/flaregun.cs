@@ -17,7 +17,7 @@ public class flaregun : MonoBehaviour {
 	void Update () 
 	{
 
-		if (/*Input.GetButtonDown("Oculus_CrossPlatform_PrimaryHandTrigger")*/OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0 && !GetComponent<Animation>().isPlaying)
+		if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0 && !GetComponent<Animation>().isPlaying)
         {
             Shoot();
         }
@@ -30,7 +30,5 @@ public class flaregun : MonoBehaviour {
         Rigidbody bulletInstance;			
 		bulletInstance = Instantiate(flareBullet,barrelEnd.position,barrelEnd.rotation) as Rigidbody; //INSTANTIATING THE FLARE PROJECTILE
 		bulletInstance.AddForce(barrelEnd.forward * bulletSpeed); //ADDING FORWARD FORCE TO THE FLARE PROJECTILE
-
-          
 	}
 }
