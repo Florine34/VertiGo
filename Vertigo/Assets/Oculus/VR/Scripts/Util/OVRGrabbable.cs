@@ -112,8 +112,7 @@ public class OVRGrabbable : MonoBehaviour
 	/// <summary>
 	/// Notifies the object that it has been grabbed.
 	/// </summary>
-	virtual public void GrabBegin(OVRGrabber hand, Collider grabPoint)
-    {
+	virtual public void GrabBegin(OVRGrabber hand, Collider grabPoint) {
         m_grabbedBy = hand;
         m_grabbedCollider = grabPoint;
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
@@ -122,8 +121,7 @@ public class OVRGrabbable : MonoBehaviour
 	/// <summary>
 	/// Notifies the object that it has been released.
 	/// </summary>
-	virtual public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
-    {
+	virtual public void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity) {
         Rigidbody rb = gameObject.GetComponent<Rigidbody>();
         rb.isKinematic = m_grabbedKinematic;
         rb.velocity = linearVelocity;
