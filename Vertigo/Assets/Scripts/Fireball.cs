@@ -5,7 +5,9 @@ using UnityEngine;
 public class Fireball : MonoBehaviour
 {
     public GameObject ball;
+    public Transform depart;
     private List<GameObject> balls;
+    private float timing = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -17,15 +19,18 @@ public class Fireball : MonoBehaviour
     void Update()
     {
         GameObject b;
-        Camera cam = Camera.main;
-        Ray r = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Vector3 dir = -(transform.rotation * depart.right);   //(transform.rotation * transform.forward).normalized;
 
-        if (Input.GetMouseButtonDown(0)) {
+        if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0 && timing > 1) {
+            timing = 0;
             b = Instantiate(ball);
-            b.transform.position = new Vector3(r.origin.x + r.direction.normalized.x/3, r.origin.y + r.direction.normalized.y/3, r.origin.z + r.direction.normalized.z/3);
-            b.GetComponent<Rigidbody>().AddForce(r.direction.normalized * 20, ForceMode.Impulse);
+            b.transform.position = depart.position/* + dir*/;  /*new Vector3(r.origin.x + r.direction.normalized.x/3, r.origin.y + r.direction.normalized.y/3, r.origin.z + r.direction.normalized.z/3)*/
+            b.GetComponent<Rigidbody>().AddForce(dir * 40, ForceMode.Impulse);
 
             balls.Add(b);
+            Debug.Log("depart : " + depart.position);
         }
+
+        timing += Time.deltaTime;
     }
 }
