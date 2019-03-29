@@ -5,6 +5,7 @@ using UnityEngine;
 public class OpenCloche : MonoBehaviour
 {
     public GameObject cloche;
+    public GameObject cubeRouge; 
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,7 @@ public class OpenCloche : MonoBehaviour
         if(other.name == "Sphere")
         {
             cloche.SetActive(false);
+            cubeRouge.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None; 
         }
     }
 }

@@ -6,15 +6,14 @@ public class GripManager : MonoBehaviour
 {
 
     public Rigidbody Body;
-    public OVRTracker controller; 
     public Pull left;
     public Pull right;
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        var lDevice = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger, OVRInput.Controller.LTouch);
-        var rDevice = OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger, OVRInput.Controller.RTouch);
+        var lDevice = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger);
+        var rDevice = OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger);
 
         bool isGripped = left.canGrip || right.canGrip;
 
@@ -22,12 +21,14 @@ public class GripManager : MonoBehaviour
         {
             if (left.canGrip && lDevice > 0 )
             {
+                Debug.Log("passer dans le if");
                 Body.useGravity = false;
                 Body.isKinematic = true;
                 Body.transform.position += left.prevPos - left.transform.localPosition;
             }
             else if (left.canGrip && lDevice < 0)
             {
+                Debug.Log("passer dans le if 2");
                 Body.useGravity = true;
                 Body.isKinematic = false;
                 Body.velocity = (left.prevPos - left.transform.localPosition) / Time.deltaTime;
@@ -35,12 +36,14 @@ public class GripManager : MonoBehaviour
 
             if (right.canGrip && rDevice > 0)
             {
+                Debug.Log("passer dans le if3");
                 Body.useGravity = false;
                 Body.isKinematic = true;
                 Body.transform.position += right.prevPos - right.transform.localPosition;
             }
             else if (right.canGrip && rDevice < 0)
             {
+                Debug.Log("passer dans le if4");
                 Body.useGravity = true;
                 Body.isKinematic = false;
                 Body.velocity = (right.prevPos - right.transform.localPosition) / Time.deltaTime;
@@ -49,6 +52,7 @@ public class GripManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("passer dans le else");
             Body.useGravity = true;
             Body.isKinematic = false;
         }

@@ -8,6 +8,7 @@ TagManager:
   - SphereAColorier
   - SolPiece1
   - IndiceCode
+  - OVRPlayerController
   layers:
   - Default
   - TransparentFX

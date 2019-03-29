@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class flarebullet : MonoBehaviour {
 		
@@ -8,7 +9,11 @@ public class flarebullet : MonoBehaviour {
     private ParticleSystem ps;
     private ChangeColorPaint color;
     ParticleSystem.MainModule main;
-    private int countRightColor = 0; 
+    private int countRightColor = 0;
+    private List<int> tabBonOrdre = new List<int>{ 1, 2, 3, 4, 5 }; 
+    private List<int> tabAVerifier = new List<int>(5);
+    public OpenDoor door;
+    public bool couleurBonOrdre; 
 
     // Use this for initialization
     void Start () {
@@ -38,45 +43,53 @@ public class flarebullet : MonoBehaviour {
             case "SphereJaune":
                 if(other.GetComponent<Renderer>().material.color == Color.yellow)
                 {
-                    countRightColor++; 
+                    countRightColor++;
+                    tabAVerifier.Add(1); 
                 }
                 break;
             case "SphereVert":
                 if (other.GetComponent<Renderer>().material.color == Color.green)
                 {
                     countRightColor++;
+                    tabAVerifier.Add(3);
                 }
                 break;
             case "SphereCyan":
                 if (other.GetComponent<Renderer>().material.color == Color.cyan)
                 {
                     countRightColor++;
+                    tabAVerifier.Add(5);
                 }
                 break;
-            case "SphereBleu":
+           /* case "SphereBleu":
                 if (other.GetComponent<Renderer>().material.color == Color.blue)
                 {
                     countRightColor++;
+                    tabAVerifier.Add(5);
                 }
-                break;
+                break;*/
             case "SphereMagenta":
                 if (other.GetComponent<Renderer>().material.color == Color.magenta)
                 {
                     countRightColor++;
+                    tabAVerifier.Add(2);
                 }
                 break;
             case "SphereMRouge":
                 if (other.GetComponent<Renderer>().material.color == Color.red)
                 {
                     countRightColor++;
+                    tabAVerifier.Add(4);
                 }
                 break;
 
         }
 
-        if(countRightColor == 6)
+        if(countRightColor == 6 && tabAVerifier == tabBonOrdre)
         {
-            Debug.Log("Toutes les couleurs sont correct ! "); 
+            Debug.Log("Toutes les couleurs sont corrects et dans le bon ordre! ");
+            couleurBonOrdre = true; 
+            door.OpenTheDoor(); 
         }
       
     }
