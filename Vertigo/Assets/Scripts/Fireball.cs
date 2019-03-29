@@ -19,15 +19,14 @@ public class Fireball : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         GameObject b;
-        Vector3 dir = transform.forward;   //-(transform.rotation * depart.right);   // (Quaternion.Euler(new Vector3(0, -90, 0)) * transform.rotation * transform.forward).normalized;
-        if (OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0 && timing > 1) {
+        Vector3 dir = -transform.right;
+
+        if ((1 == 1 || OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0) && timing > 1) {
             timing = 0;
-            b = Instantiate(ball);
-            b.transform.position = depart.position/* + dir*/;  /*new Vector3(r.origin.x + r.direction.normalized.x/3, r.origin.y + r.direction.normalized.y/3, r.origin.z + r.direction.normalized.z/3)*/
-            b.GetComponent<Rigidbody>().AddForce(dir * 40, ForceMode.Impulse);
+            b = Instantiate(ball, depart.position, depart.rotation);
+            b.GetComponent<Rigidbody>().AddForce(dir.normalized * 40, ForceMode.Impulse);
 
             balls.Add(b);
-            Debug.Log("depart : " + depart.position);
         }
 
         timing += Time.deltaTime;
