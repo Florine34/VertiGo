@@ -9,10 +9,6 @@ public class Pull : MonoBehaviour
     [SerializeField]
     public Transform controller; 
 
-    // Should be OVRInput.Controller.LTouch or OVRInput.Controller.RTouch.
-    [SerializeField]
-   protected OVRInput.Controller m_controller;
-
     [HideInInspector]
     public Vector3 prevPos;
     

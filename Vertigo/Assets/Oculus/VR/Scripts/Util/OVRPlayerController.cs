@@ -149,8 +149,10 @@ public class OVRPlayerController : MonoBehaviour
 	private float SimulationRate = 60f;
 	private float buttonRotation = 0f;
 	private bool ReadyToSnapTurn; // Set to true when a snap turn has occurred, code requires one frame of centered thumbstick to enable another snap turn.
+    public float LadderOutForce = 5f; 
 
-	void Start()
+
+    void Start()
 	{
 		// Add eye-depth as a camera offset from the player controller
 		var p = CameraRig.transform.localPosition;
@@ -496,10 +498,8 @@ public class OVRPlayerController : MonoBehaviour
 	{
 		if (!Controller.isGrounded)
 			return false;
-
-		MoveThrottle += new Vector3(0, transform.lossyScale.y * JumpForce, 0);
-
-		return true;
+        MoveThrottle += new Vector3(0, transform.lossyScale.y * JumpForce, 0);
+        return true;
 	}
 
 	/// <summary>
@@ -596,4 +596,14 @@ public class OVRPlayerController : MonoBehaviour
 			transform.rotation = Quaternion.Euler(euler);
 		}
 	}
+
+    public void _init()
+    {
+    }
+
+    public void _JumpOutLadder()
+    {
+        MoveThrottle += new Vector3(0, 0, transform.lossyScale.z * LadderOutForce);
+
+    }
 }
