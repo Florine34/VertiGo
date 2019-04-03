@@ -59,6 +59,7 @@ public class taquin : MonoBehaviour
                     tuiles[i][j].GetComponent<Tuile>().parent = this;
                     if (tuiles[i][j].GetComponent<Tuile>().value == 0) {
                         tuiles[i][j].GetComponent<MeshRenderer>().enabled = false;
+                        tuiles[i][j].layer = 0;
                         tuiles[i][j].transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
                         zeroi = i; zeroj = j;
                     }

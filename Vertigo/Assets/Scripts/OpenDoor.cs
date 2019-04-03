@@ -7,7 +7,7 @@ public class OpenDoor : MonoBehaviour
  
     private Animator animDoor;
     int doorOpen = 0;
-    public flarebullet couleur; 
+    public flarebullet couleur;
 
     // Start is called before the first frame update
     void Start()

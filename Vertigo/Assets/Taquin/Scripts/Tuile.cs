@@ -14,11 +14,13 @@ public class Tuile : MonoBehaviour
     public int i, j;
     [HideInInspector]
     public bool selected;
+    private float timer;
 
 
     // Start is called before the first frame update
     void Start() {
         selected = false;
+        timer = 0.22f;
     }
 
     // if we detect a collision
@@ -43,7 +45,7 @@ public class Tuile : MonoBehaviour
     // Update is called once per frame
     void Update() {
 
-        if (selected) {
+        if (selected && timer > 0.2f) {
 
             if (parent.endi == -1 && parent.endj == -1) {
                 Debug.Log("Acote ? " + Acote(parent.zeroi, parent.zeroj) + "  (zeroi : "+ parent.zeroi + " zeroj : "+parent.zeroj + ")   (i : "+i+" j : "+j+")");
@@ -53,6 +55,10 @@ public class Tuile : MonoBehaviour
                 }
             }
 
+            selected = false;
+            timer = 0;
+        } else {
+            timer += Time.deltaTime;
             selected = false;
         }
     }

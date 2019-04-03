@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Es.InkPainter.Sample;
 
 public class flarebullet : MonoBehaviour {
 		
@@ -8,22 +9,20 @@ public class flarebullet : MonoBehaviour {
 	public AudioClip flareBurningSound;
     private ParticleSystem ps;
     private ChangeColorPaint color;
-    ParticleSystem.MainModule main;
+    private CollisionPainter painter;
     private int countRightColor = 0;
     private List<int> tabBonOrdre = new List<int>{ 1, 2, 3, 4, 5 }; 
     private List<int> tabAVerifier = new List<int>(5);
     public OpenDoor door;
+    [HideInInspector]
     public bool couleurBonOrdre; 
 
     // Use this for initialization
     void Start () {
-		
-		GetComponent<AudioSource>().PlayOneShot(flareBurningSound);
-		flaresound = GetComponent<AudioSource>();
-        ps = GetComponent<ParticleSystem>();
-        color = GameObject.Find("Paint").GetComponent<ChangeColorPaint>();
-        main = ps.main;
-        main.startColor = new Color(0, 0, 100);
+		//GetComponent<AudioSource>().PlayOneShot(flareBurningSound);
+		//flaresound = GetComponent<AudioSource>();
+        painter = GetComponent<CollisionPainter>();
+        painter.brush.Color = new Color(0, 0, 100);
     }
 
     void Update()
@@ -31,67 +30,59 @@ public class flarebullet : MonoBehaviour {
         SetColor(); 
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnColliderEnter(Collider other)
     {
        if (other.gameObject.tag == "SphereAColorier")
        {
-            Destroy(gameObject);
-            other.GetComponent<Renderer>().material.color = main.startColor.color;
-       }
-        switch (other.gameObject.name)
-        {
-            case "SphereJaune":
-                if(other.GetComponent<Renderer>().material.color == Color.yellow)
-                {
-                    countRightColor++;
-                    tabAVerifier.Add(1); 
-                }
-                break;
-            case "SphereVert":
-                if (other.GetComponent<Renderer>().material.color == Color.green)
-                {
-                    countRightColor++;
-                    tabAVerifier.Add(3);
-                }
-                break;
-            case "SphereCyan":
-                if (other.GetComponent<Renderer>().material.color == Color.cyan)
-                {
-                    countRightColor++;
-                    tabAVerifier.Add(5);
-                }
-                break;
-           /* case "SphereBleu":
-                if (other.GetComponent<Renderer>().material.color == Color.blue)
-                {
-                    countRightColor++;
-                    tabAVerifier.Add(5);
-                }
-                break;*/
-            case "SphereMagenta":
-                if (other.GetComponent<Renderer>().material.color == Color.magenta)
-                {
-                    countRightColor++;
-                    tabAVerifier.Add(2);
-                }
-                break;
-            case "SphereMRouge":
-                if (other.GetComponent<Renderer>().material.color == Color.red)
-                {
-                    countRightColor++;
-                    tabAVerifier.Add(4);
-                }
-                break;
+            
+            switch (other.gameObject.name)
+            {
+                case "SphereJaune":
+                    if(painter.brush.Color == Color.yellow)
+                    {
+                        countRightColor++;
+                        tabAVerifier.Add(1); 
+                    }
+                    break;
+                case "SphereVert":
+                    if (painter.brush.Color == Color.green)
+                    {
+                        countRightColor++;
+                        tabAVerifier.Add(3);
+                    }
+                    break;
+                case "SphereCyan":
+                    if (painter.brush.Color == Color.cyan)
+                    {
+                        countRightColor++;
+                        tabAVerifier.Add(5);
+                    }
+                    break;
+                case "SphereMagenta":
+                    if (painter.brush.Color == Color.magenta)
+                    {
+                        countRightColor++;
+                        tabAVerifier.Add(2);
+                    }
+                    break;
+                case "SphereMRouge":
+                    if (painter.brush.Color == Color.red)
+                    {
+                        countRightColor++;
+                        tabAVerifier.Add(4);
+                    }
+                    break;
+
+            }
+
+            if(countRightColor == 6 && tabAVerifier == tabBonOrdre) {
+                Debug.Log("Toutes les couleurs sont corrects et dans le bon ordre! ");
+                couleurBonOrdre = true; 
+                door.OpenTheDoor();
+            }
 
         }
 
-        if(countRightColor == 6 && tabAVerifier == tabBonOrdre)
-        {
-            Debug.Log("Toutes les couleurs sont corrects et dans le bon ordre! ");
-            couleurBonOrdre = true; 
-            door.OpenTheDoor(); 
-        }
-      
     }
 
     void SetColor()
@@ -99,22 +90,22 @@ public class flarebullet : MonoBehaviour {
         switch (color.GetCounter())
         {
             case 0: // Bleu clair
-                main.startColor = Color.cyan;
+                painter.brush.Color = Color.cyan;
                 break;
             case 1: // Jaune
-                main.startColor = Color.yellow;
+                painter.brush.Color = Color.yellow;
                 break;
             case 2: // Magenta
-                main.startColor = Color.magenta;
+                painter.brush.Color = Color.magenta;
                 break;
             case 3: // Rouge
-                main.startColor = Color.red;
+                painter.brush.Color = Color.red;
                 break;
             case 4: // Vert 
-                main.startColor = Color.green;
+                painter.brush.Color = Color.green;
                 break;
             case 5: // Bleu Foncé
-                main.startColor = Color.blue;
+                painter.brush.Color = Color.blue;
                 break;
 
         }

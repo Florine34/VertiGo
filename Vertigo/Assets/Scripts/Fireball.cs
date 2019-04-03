@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +21,7 @@ public class Fireball : MonoBehaviour {
         GameObject b;
         Vector3 dir = -transform.right;
 
-        if ((1 == 1 || OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0) && timing > 1) {
+        if ((OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger) > 0) && timing > 1) {
             timing = 0;
             b = Instantiate(ball, depart.position, depart.rotation);
             b.GetComponent<Rigidbody>().AddForce(dir.normalized * 40, ForceMode.Impulse);
