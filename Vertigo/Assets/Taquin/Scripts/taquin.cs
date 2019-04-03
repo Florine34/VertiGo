@@ -49,6 +49,7 @@ public class taquin : MonoBehaviour
                     tuiles[i][j].transform.SetParent(transform.GetChild(1));
                     tuiles[i][j].transform.localPosition = new Vector3(x + j*(w+border), y - i*(h + border), -0.015f);
                     tuiles[i][j].transform.localScale = new Vector3(w, h, border);
+                    tuiles[i][j].transform.localRotation = new Quaternion(0, 0, 0, 1);
                     tuiles[i][j].layer = 9;
                     // assign a number different between each tiles
                     tuiles[i][j].GetComponent<Tuile>().value = numbers[i*n+j];

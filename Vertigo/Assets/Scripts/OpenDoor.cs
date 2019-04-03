@@ -7,7 +7,7 @@ public class OpenDoor : MonoBehaviour
  
     private Animator animDoor;
     int doorOpen = 0;
-    public flarebullet couleur;
+    public CheckColor couleur;
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +21,13 @@ public class OpenDoor : MonoBehaviour
         
     }
 
-    public void OpenTheDoor()
-    {
-        doorOpen++;
-        if(doorOpen == 3 || couleur.couleurBonOrdre == true)
-        {
+    public void OpenTheDoor() {
+        bool couleurReussi = false;
+        doorOpen ++;
+
+        if (couleur != null) couleurReussi = couleur.couleurBonOrdre;
+
+        if(doorOpen == 3 || couleurReussi == true) {
             animDoor.SetBool("open", true);
         }
         
