@@ -1424,5 +1424,12 @@ namespace VRTK
                 bodyRigidbody.AddRelativeForce(appliedMomentum, ForceMode.VelocityChange);
             }
         }
+
+        // fonction test jump
+
+        public void Jump()
+        {
+
+        }
     }
 }

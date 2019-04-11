@@ -5,7 +5,7 @@ using UnityEngine;
 public class Jumper : MonoBehaviour
 {
     // Start is called before the first frame update
-    public OVRPlayerController player; 
+    public Rigidbody player; 
     void Start()
     {
         
@@ -21,7 +21,8 @@ public class Jumper : MonoBehaviour
     {
         if (other.tag == "OVRPlayerController")
         {
-            player.Jump();
+            
+          player.AddForce(100,0,0,ForceMode.Impulse );
         }
     }
 }
