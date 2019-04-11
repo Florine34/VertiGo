@@ -23,6 +23,7 @@ public class Jumper : MonoBehaviour
         {
             
           player.AddForce(100,0,0,ForceMode.Impulse );
+            //player.AddForce(transform.up * 100);
         }
     }
 }
