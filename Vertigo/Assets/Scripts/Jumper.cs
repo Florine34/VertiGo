@@ -5,7 +5,7 @@ using VRTK;
 
 public class Jumper : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public int force;
     private bool active = true;
     
     void Start()
@@ -23,7 +23,7 @@ public class Jumper : MonoBehaviour
         VRTK_BodyPhysics body = other.gameObject.GetComponent<VRTK_BodyPhysics>();
 
         if (active && body != null) {
-            body.Jump();
+            body.Jump(force);
         }
 
         active = !active;
