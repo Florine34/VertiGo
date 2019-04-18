@@ -1427,10 +1427,10 @@ namespace VRTK
 
         // fonction test jump
 
-        public void Jump() {
+        public void Jump(int force) {
 
             if (bodyRigidbody != null) {
-                bodyRigidbody.AddForce(0, 100, 0, ForceMode.Impulse);
+                bodyRigidbody.AddForce(0, force, 0, ForceMode.Impulse);
             }
 
         }

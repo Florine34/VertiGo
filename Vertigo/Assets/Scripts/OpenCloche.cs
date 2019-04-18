@@ -18,8 +18,9 @@ public class OpenCloche : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnColliderEnter(Collider other)
     {
+        Debug.Log("dans colliderEnter ");
         if(other.name == "Sphere")
         {
             cloche.SetActive(false);
