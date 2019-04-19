@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using VRTK;
 
 
 public class OpenTableau : MonoBehaviour {
@@ -26,8 +26,8 @@ public class OpenTableau : MonoBehaviour {
             if (animTab != null) {
                 animTab.SetBool("open", true);
 
-                if (Fusil != null && Fusil.GetComponent<Rigidbody>() != null) {
-                    Fusil.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                if (Fusil != null && Fusil.GetComponent<VRTK_InteractableObject>() != null) {
+                    Fusil.GetComponent<VRTK_InteractableObject>().enabled = true;
                 }
             }
         }

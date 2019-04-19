@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
+
+
+
 
 public class OpenCloche : MonoBehaviour {
     public GameObject cloche;
@@ -23,7 +27,10 @@ public class OpenCloche : MonoBehaviour {
 
         if(other.gameObject.name.Equals("Sphere")) {
             cloche.SetActive(false);
-            cubeRouge.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None; 
+
+            if (cubeRouge != null && cubeRouge.GetComponent<VRTK_InteractableObject>() != null) {
+                cubeRouge.GetComponent<VRTK_InteractableObject>().enabled = true;
+            } 
         }
     }
 }
