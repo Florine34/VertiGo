@@ -2,27 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpenCloche : MonoBehaviour
-{
+public class OpenCloche : MonoBehaviour {
     public GameObject cloche;
     public GameObject cubeRouge; 
+
+
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         
     }
+
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         
     }
 
-    private void OnColliderEnter(Collider other)
-    {
-        Debug.Log("dans colliderEnter ");
-        if(other.name == "Sphere")
-        {
+
+    void OnCollisionEnter(Collision other) {
+
+        if(other.gameObject.name.Equals("Sphere")) {
             cloche.SetActive(false);
             cubeRouge.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None; 
         }

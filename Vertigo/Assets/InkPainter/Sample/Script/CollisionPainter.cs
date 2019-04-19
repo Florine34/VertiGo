@@ -35,7 +35,7 @@ namespace Es.InkPainter.Sample
                 var canvas = p.otherCollider.GetComponent<InkCanvas>();
                 if (canvas != null) {
                     canvas.Paint(brush, p.point);
-                    //canvas.Paint(brush, p.point);
+                    canvas.Paint(brush, p.point);
                 }
 			}
 

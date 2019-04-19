@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class OpenTableau : MonoBehaviour {
     public Animator animTab;
     public GameObject Fusil;
@@ -18,13 +20,11 @@ public class OpenTableau : MonoBehaviour {
         
     }
 
-    private void OnColliderEnter(Collider other){
+    void OnCollisionEnter(Collision other) {
 
-        if (other.name.Equals("Sphere")) {
+        if (other.gameObject.name.Equals("Sphere")) {
             if (animTab != null) {
                 animTab.SetBool("open", true);
-
-                Debug.LogError("Boule");
 
                 if (Fusil != null && Fusil.GetComponent<Rigidbody>() != null) {
                     Fusil.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;

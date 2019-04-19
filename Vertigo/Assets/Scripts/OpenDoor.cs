@@ -10,15 +10,13 @@ public class OpenDoor : MonoBehaviour
     public CheckColor couleur;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         animDoor = GetComponent<Animator>();
-        animDoor.SetBool("open", true);
+        //animDoor.SetBool("open", true);
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         
     }
 

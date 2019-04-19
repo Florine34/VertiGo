@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 public class Fireball : MonoBehaviour {
+    public ChangeColorPaint color;
     public AudioClip flareBurningSound;
     public GameObject ball;
     public Transform depart;
@@ -24,12 +25,35 @@ public class Fireball : MonoBehaviour {
             timing = 0;
             b = Instantiate(ball, depart.position, depart.rotation);
             b.GetComponent<flarebullet>().parent = GetComponent<CheckColor>();
-            b.GetComponent<Rigidbody>().AddForce(dir.normalized * 60, ForceMode.Impulse);
-
+            b.GetComponent<Rigidbody>().AddForce(dir.normalized * 40, ForceMode.Impulse);
+            SetColor(b);
             if (GetComponent<AudioSource>() != null)
                 GetComponent<AudioSource>().PlayOneShot(flareBurningSound);
         }
 
         timing += Time.deltaTime;
+    }
+
+    void SetColor(GameObject b) {
+
+
+        //Debug.LogError("Counter : " + color.GetCounter());
+        switch (color.GetCounter()) {
+            case 0: // Bleu 
+                b.GetComponent<flarebullet>().SetColor(Color.cyan);
+                break;
+            case 1: // Jaune
+                b.GetComponent<flarebullet>().SetColor(Color.yellow);
+                break;
+            case 2: // Magenta
+                b.GetComponent<flarebullet>().SetColor(Color.magenta);
+                break;
+            case 3: // Rouge
+                b.GetComponent<flarebullet>().SetColor(Color.red);
+                break;
+            case 4: // Vert 
+                b.GetComponent<flarebullet>().SetColor(Color.green);
+                break;
+        }
     }
 }

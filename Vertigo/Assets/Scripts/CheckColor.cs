@@ -6,7 +6,6 @@ using Es.InkPainter.Sample;
 
 public class CheckColor : MonoBehaviour {
     public OpenDoor door;
-    private ChangeColorPaint color;
     private CollisionPainter painter;
     private int countRightColor = 0;
     private List<int> tabBonOrdre = new List<int> { 1, 2, 3, 4, 5 };
@@ -61,7 +60,7 @@ public class CheckColor : MonoBehaviour {
         }
 
         if (countRightColor == 6 && tabAVerifier == tabBonOrdre) {
-            Debug.Log("Toutes les couleurs sont corrects et dans le bon ordre! ");
+            Debug.Log("Toutes les couleurs sont corrects et dans le bon ordre!");
             couleurBonOrdre = true;
             door.OpenTheDoor();
         }
