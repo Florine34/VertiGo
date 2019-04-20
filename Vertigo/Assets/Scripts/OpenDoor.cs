@@ -27,9 +27,14 @@ public class OpenDoor : MonoBehaviour
         if (couleur != null) couleurReussi = couleur.couleurBonOrdre;
 
         if(doorOpen == 3 || couleurReussi == true) {
-            animDoor.SetBool("open", true);
+            Open();
         }
         
+    }
+
+    public void Open()
+    {
+        animDoor.SetBool("open", true);
     }
 
     public void CloseTheDoor()
