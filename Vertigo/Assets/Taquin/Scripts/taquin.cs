@@ -13,6 +13,7 @@ public class taquin : MonoBehaviour
     public Material highlight;
     public Material baseMaterial;
     public Texture2D[] images;
+    public OpenDoor door;
     private GameObject[][] tuiles;
     private bool locked;
     [HideInInspector]
@@ -213,6 +214,7 @@ public class taquin : MonoBehaviour
                 tuiles[zeroi][zeroj].GetComponent<Renderer>().enabled = true;   // shown the missing tile
                 transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = new Color(1, 0.5f, 0);   // mark the taquin object to shown the victory
                 locked = true;    // block the game system
+                door.Open();
             };
         }
     }
@@ -378,6 +380,6 @@ public class taquin : MonoBehaviour
 
         Debug.Log("parity : " + parity  + "   switches : " + switches + "   dim : " + dim);
 
-        return (parity % 2 == 1) ^ (switches % 2 == 1);
+        return ((parity % 2 == 1) ^ (switches % 2 == 1));
     }
 }
