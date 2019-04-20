@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using VRTK;
 
-public class Jumper : MonoBehaviour
-{
+public class Jumper : MonoBehaviour {
     public int force;
+    public Animator[] plaques;
     private bool active = true;
     
-    void Start()
-    {
+
+
+    void Start() {
         active = true;
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         
     }
 
@@ -24,14 +24,17 @@ public class Jumper : MonoBehaviour
 
         if (active && body != null) {
             body.Jump(force);
+
+            foreach (var plaque in plaques) {
+                plaque.SetBool("ouvert", true);
+            }
+
+        } else {
+            foreach (var plaque in plaques) {
+                plaque.SetBool("ouvert", false);
+            }
         }
 
         active = !active;
-
-        /*if (other.tag == "OVRPlayerController") {
-            player = other.gameObject.GetComponent<Rigidbody>();
-            player.AddForce(100, 0, 0, ForceMode.Impulse);
-            //player.AddForce(transform.up * 100);
-        }*/
     }
 }
