@@ -29,7 +29,7 @@ public class OpenCloche : MonoBehaviour {
             cloche.SetActive(false);
 
             if (cubeRouge != null && cubeRouge.GetComponent<VRTK_InteractableObject>() != null) {
-                cubeRouge.GetComponent<VRTK_InteractableObject>().enabled = true;
+                cubeRouge.GetComponent<VRTK_InteractableObject>().isGrabbable = true;
             } 
         }
     }

@@ -27,7 +27,7 @@ public class OpenTableau : MonoBehaviour {
                 animTab.SetBool("open", true);
 
                 if (Fusil != null && Fusil.GetComponent<VRTK_InteractableObject>() != null) {
-                    Fusil.GetComponent<VRTK_InteractableObject>().enabled = true;
+                    Fusil.GetComponent<VRTK_InteractableObject>().isGrabbable = true;
                 }
             }
         }

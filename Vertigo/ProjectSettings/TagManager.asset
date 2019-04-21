@@ -10,6 +10,17 @@ TagManager:
   - IndiceCode
   - OVRPlayerController
   - Boule
+  - lb_groundTarget
+  - lb_perchTarget
+  - Leg
+  - SnapCube
+  - Arm
+  - SnapCylinder
+  - Saucers
+  - ExcludeTeleport
+  - Torso
+  - Head
+  - hand
   layers:
   - Default
   - TransparentFX
