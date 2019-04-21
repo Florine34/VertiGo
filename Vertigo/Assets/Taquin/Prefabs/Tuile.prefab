@@ -107,7 +107,6 @@ GameObject:
   - component: {fileID: 8709900537636675921}
   - component: {fileID: 9138402329584943310}
   - component: {fileID: 1241910087795372981}
-  - component: {fileID: 2295938271214310860}
   - component: {fileID: 4574862135239047692}
   - component: {fileID: 5704761576601677061}
   - component: {fileID: 6292050251686148484}
@@ -255,47 +254,6 @@ MonoBehaviour:
   customOutlineModels: []
   customOutlineModelPaths: []
   enableSubmeshHighlight: 0
---- !u!114 &2295938271214310860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3979229031915891584}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 472cd28b041d447a4b0f2b5c603034aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trackingSpace: {fileID: 0}
-  primaryButton: 1
-  secondaryButton: 2
-  excludeLayers:
-    serializedVersion: 2
-    m_Bits: 7479
-  raycastDistance: 2
-  onPrimarySelect:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8709900537636675921}
-        m_MethodName: OnSelected
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ChangeSelectObject
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: ControllerSelection.OVRRawRaycaster+SelectionCallback, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  onSecondarySelect:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: ControllerSelection.OVRRawRaycaster+SelectionCallback, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  activeController: 0
 --- !u!114 &4574862135239047692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,7 +270,7 @@ MonoBehaviour:
   allowedNearTouchControllers: 0
   allowedTouchControllers: 0
   ignoredColliders: []
-  isGrabbable: 1
+  isGrabbable: 0
   holdButtonToGrab: 1
   stayGrabbedOnTeleport: 1
   validDrop: 1

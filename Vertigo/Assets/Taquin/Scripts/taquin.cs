@@ -48,7 +48,7 @@ public class taquin : MonoBehaviour
                     // create the new tile from left to right
                     tuiles[i][j] = Instantiate(modele);
                     tuiles[i][j].transform.SetParent(transform.GetChild(1));
-                    tuiles[i][j].transform.localPosition = new Vector3(x + j*(w+border), y - i*(h + border), -0.015f);
+                    tuiles[i][j].transform.localPosition = new Vector3(x + j*(w+border), y - i*(h + border), -0.03f);
                     tuiles[i][j].transform.localScale = new Vector3(w, h, border);
                     tuiles[i][j].transform.localRotation = new Quaternion(0, 0, 0, 1);
                     tuiles[i][j].layer = 9;
@@ -380,6 +380,6 @@ public class taquin : MonoBehaviour
 
         Debug.Log("parity : " + parity  + "   switches : " + switches + "   dim : " + dim);
 
-        return ((parity % 2 == 1) ^ (switches % 2 == 1));
+        return !((parity % 2 == 1) ^ (switches % 2 == 1));
     }
 }

@@ -37,21 +37,25 @@ public class Fireball : MonoBehaviour {
     void SetColor(GameObject b) {
 
 
-        //Debug.LogError("Counter : " + color.GetCounter());
         switch (color.GetCounter()) {
             case 0: // Bleu 
+                //Debug.LogError("Counter : " + color.GetCounter());
                 b.GetComponent<flarebullet>().SetColor(Color.cyan);
                 break;
             case 1: // Jaune
+                //Debug.LogError("Counter : " + color.GetCounter());
                 b.GetComponent<flarebullet>().SetColor(Color.yellow);
                 break;
             case 2: // Magenta
+                //Debug.LogError("Counter : " + color.GetCounter());
                 b.GetComponent<flarebullet>().SetColor(Color.magenta);
                 break;
             case 3: // Rouge
+                //Debug.LogError("Counter : " + color.GetCounter());
                 b.GetComponent<flarebullet>().SetColor(Color.red);
                 break;
             case 4: // Vert 
+                //Debug.LogError("Counter : " + color.GetCounter());
                 b.GetComponent<flarebullet>().SetColor(Color.green);
                 break;
         }

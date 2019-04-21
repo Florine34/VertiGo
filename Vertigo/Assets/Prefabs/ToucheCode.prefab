@@ -130,7 +130,7 @@ MonoBehaviour:
   allowedNearTouchControllers: 0
   allowedTouchControllers: 0
   ignoredColliders: []
-  isGrabbable: 1
+  isGrabbable: 0
   holdButtonToGrab: 1
   stayGrabbedOnTeleport: 1
   validDrop: 1
@@ -189,3 +189,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1229a48214ebc3b4ab60fa50a8e0dd6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  linkedObject: {fileID: 0}
+  chiffre: 0

@@ -19,17 +19,17 @@ public class CheckColor : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start(){
-        sphereColorie = new List<bool>(5);
+        sphereColorie = new List<bool>();
 
-        for (int i = 0; i < sphereColorie.Count; i++) {
-            sphereColorie[i] = false;
+        for (int i = 0; i < 5; i++) {
+            sphereColorie.Add(false);
         }
     }
 
     public void ManageColor(string tagSphere, Color ballColor) {
 
         switch (tagSphere) {
-            case "SphereJaune":
+            case "SphereJauneS":
 
                 if (ballColor == Color.yellow) {
                     //countRightColor++;
@@ -37,7 +37,7 @@ public class CheckColor : MonoBehaviour {
                 }
 
                 break;
-            case "SphereVert":
+            case "SphereVertS":
 
                 if (ballColor == Color.green) {
                     //countRightColor++;
@@ -45,7 +45,7 @@ public class CheckColor : MonoBehaviour {
                 }
 
                 break;
-            case "SphereCyan":
+            case "SphereCyanS":
 
                 if (ballColor == Color.cyan) {
                     //countRightColor++;
@@ -53,7 +53,7 @@ public class CheckColor : MonoBehaviour {
                 }
 
                 break;
-            case "SphereMagenta":
+            case "SphereMagentaS":
 
                 if (ballColor == Color.magenta) {
                     //countRightColor++;
@@ -61,7 +61,7 @@ public class CheckColor : MonoBehaviour {
                 }
 
                 break;
-            case "SphereMRouge":
+            case "SphereRougeS":
 
                 if (ballColor == Color.red) {
                     //countRightColor++;
@@ -73,12 +73,14 @@ public class CheckColor : MonoBehaviour {
 
         countRightColor = 0;
         foreach (var sphere in sphereColorie) {
+            Debug.LogError("" + sphere);
             if (sphere)
                 countRightColor ++;
         }
 
+        Debug.LogError("Count : " + countRightColor);
         if (countRightColor == 5/* && tabAVerifier == tabBonOrdre*/) {
-            Debug.Log("Toutes les couleurs sont corrects et dans le bon ordre!");
+            Debug.LogError("Toutes les couleurs sont corrects et dans le bon ordre!");
             couleurBonOrdre = true;
             door.OpenTheDoor();
         }

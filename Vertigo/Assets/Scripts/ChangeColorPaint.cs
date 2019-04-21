@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class ChangeColorPaint : MonoBehaviour {
     Image m_Image;
     public Sprite [] m_Sprite;

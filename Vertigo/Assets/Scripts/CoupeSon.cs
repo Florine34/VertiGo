@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class CoupeSon : MonoBehaviour {
     public AudioSource[] sources;
-    
 
-    private void OnCollisionExit(Collision collision) {
-        foreach (var source in sources) {
+    private void OnTriggerEnter(Collider other) {
+        foreach (var source in sources)
+        {
             source.enabled = true;
         }
     }
 
-    private void OnCollisionEnter(Collision collision) {
-        foreach (var source in sources) {
+    private void OnTriggerExit(Collider other) {
+        foreach (var source in sources)
+        {
             source.enabled = false;
         }
     }

@@ -5,8 +5,8 @@ using VRTK;
 public class VerificationCode : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int code;
-    public GameObject door;
+    public string code;
+    public OpenDoor door;
     public VRTK_InteractableObject linkedObject;
 
     protected virtual void OnEnable()
@@ -32,10 +32,11 @@ public class VerificationCode : MonoBehaviour
     protected virtual void InteractableObjectUsed(object sender, InteractableObjectEventArgs e)
     {
         /*Verification du bon code*/
-        int entree = int.Parse(this.GetComponentInParent<AfficheTexte>().codeEntre);
-        if(entree == code){
+        string entree = this.GetComponentInParent<AfficheTexte>().codeEntre;
+
+        if(entree.Equals(code)){
             this.GetComponentInParent<AfficheTexte>().codeEntre = "OPEN";      
-            door.GetComponent<OpenDoor>().Open();
+            door.Open();
         }
         else
         {

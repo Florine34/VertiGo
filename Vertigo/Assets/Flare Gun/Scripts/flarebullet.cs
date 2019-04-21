@@ -15,20 +15,19 @@ public class flarebullet : MonoBehaviour {
     void Start () {
         timer = 0f;
         painter = GetComponent<CollisionPainter>();
-        painter.brush.Color = new Color(0, 0, 100);
     }
 
     void Update() {
         //Debug.Log("Timer : " + timer);
 
-        if (timer > 2) {
-            Destroy(this);
+        if (timer > 5) {
+            Destroy(gameObject);
         }
 
         timer += Time.deltaTime;
     }
 
-    private void OnColliderEnter(Collider other) {
+    private void OnCollisionEnter(Collision other) {
 
        if (other.gameObject.tag == "SphereAColorier") {
             if (parent != null) parent.ManageColor(other.gameObject.name, painter.brush.Color);
@@ -37,6 +36,7 @@ public class flarebullet : MonoBehaviour {
     }
 
     public void SetColor(Color color) {
+        //Debug.LogError("Couleur : " + color);
         GetComponent<CollisionPainter>().brush.Color = color;
         GetComponent<MeshRenderer>().material.color = color;
     }

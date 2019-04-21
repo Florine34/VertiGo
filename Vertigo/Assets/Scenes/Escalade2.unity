@@ -246,11 +246,11 @@ GameObject:
   m_Component:
   - component: {fileID: 185183165}
   - component: {fileID: 185183164}
-  - component: {fileID: 185183163}
   - component: {fileID: 185183162}
   - component: {fileID: 185183161}
-  - component: {fileID: 185183160}
   - component: {fileID: 185183159}
+  - component: {fileID: 185183166}
+  - component: {fileID: 185183160}
   m_Layer: 0
   m_Name: RightController
   m_TagString: Untagged
@@ -317,16 +317,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 185183158}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 947b27445602ed640b885db7e667dfc1, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ec704cceb26f6f49b6c900fc83d8d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grabButton: 3
-  grabPrecognition: 0.1
-  throwMultiplier: 1
-  createRigidBodyWhenNotTouching: 0
-  controllerAttachPoint: {fileID: 0}
+  enableTeleport: 1
+  targetListPolicy: {fileID: 0}
+  pointerRenderer: {fileID: 0}
+  activationButton: 10
+  holdButtonToActivate: 1
+  activateOnEnable: 0
+  activationDelay: 0
+  selectionButton: 10
+  selectOnPress: 0
+  selectionDelay: 0
+  selectAfterHoverDuration: 0
+  interactWithObjects: 0
+  grabToPointerTip: 0
+  attachedTo: {fileID: 0}
   controllerEvents: {fileID: 0}
-  interactTouch: {fileID: 0}
+  interactUse: {fileID: 0}
+  customOrigin: {fileID: 0}
+  controller: {fileID: 0}
 --- !u!114 &185183161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -372,36 +383,6 @@ MonoBehaviour:
   maximumCursorScale: {x: Infinity, y: Infinity, z: Infinity}
   customTracer: {fileID: 0}
   customCursor: {fileID: 0}
---- !u!114 &185183163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 185183158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ec704cceb26f6f49b6c900fc83d8d18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableTeleport: 1
-  targetListPolicy: {fileID: 0}
-  pointerRenderer: {fileID: 185183162}
-  activationButton: 10
-  holdButtonToActivate: 1
-  activateOnEnable: 0
-  activationDelay: 0
-  selectionButton: 10
-  selectOnPress: 0
-  selectionDelay: 0
-  selectAfterHoverDuration: 0
-  interactWithObjects: 0
-  grabToPointerTip: 0
-  attachedTo: {fileID: 0}
-  controllerEvents: {fileID: 0}
-  interactUse: {fileID: 0}
-  customOrigin: {fileID: 0}
-  controller: {fileID: 0}
 --- !u!114 &185183164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,6 +448,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &185183166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185183158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 947b27445602ed640b885db7e667dfc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabButton: 3
+  grabPrecognition: 0
+  throwMultiplier: 1
+  createRigidBodyWhenNotTouching: 0
+  controllerAttachPoint: {fileID: 0}
+  controllerEvents: {fileID: 0}
+  interactTouch: {fileID: 0}
 --- !u!1 &335485315 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100030, guid: d36b03ffa39575d47ab6ee7fa7e50246,
@@ -1431,7 +1431,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 100030, guid: d36b03ffa39575d47ab6ee7fa7e50246, type: 3}
+    - target: {fileID: 100012, guid: d36b03ffa39575d47ab6ee7fa7e50246, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100018, guid: d36b03ffa39575d47ab6ee7fa7e50246, type: 3}
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
@@ -1439,11 +1443,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 100012, guid: d36b03ffa39575d47ab6ee7fa7e50246, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100018, guid: d36b03ffa39575d47ab6ee7fa7e50246, type: 3}
+    - target: {fileID: 100030, guid: d36b03ffa39575d47ab6ee7fa7e50246, type: 3}
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
