@@ -35,7 +35,8 @@ public class VerificationCode : MonoBehaviour
         string entree = this.GetComponentInParent<AfficheTexte>().codeEntre;
 
         if(entree.Equals(code)){
-            this.GetComponentInParent<AfficheTexte>().codeEntre = "OPEN";      
+            this.GetComponentInParent<AfficheTexte>().codeEntre = "OPEN";
+            GetComponent<AudioSource>().PlayOneShot(GetComponent<AudioSource>().clip);
             door.Open();
         }
         else

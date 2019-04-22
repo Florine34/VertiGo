@@ -5,11 +5,11 @@ using UnityEngine;
 public class ChangeAudioClip : StateMachineBehaviour
 {
     public AudioClip[] sons;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-      
-            animator.gameObject.GetComponent<AudioSource>().clip = sons[0];
-      
+        animator.gameObject.GetComponent<AudioSource>().clip = sons[0];
+        animator.gameObject.GetComponent<AudioSource>().enabled = false;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

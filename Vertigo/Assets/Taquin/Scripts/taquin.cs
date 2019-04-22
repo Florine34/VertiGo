@@ -213,6 +213,7 @@ public class taquin : MonoBehaviour
                 DisableNumbers();
                 tuiles[zeroi][zeroj].GetComponent<Renderer>().enabled = true;   // shown the missing tile
                 transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = new Color(1, 0.5f, 0);   // mark the taquin object to shown the victory
+                GetComponent<AudioSource>().PlayOneShot(GetComponent<AudioSource>().clip);
                 locked = true;    // block the game system
                 door.Open();
             };

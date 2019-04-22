@@ -8,12 +8,13 @@ public class CoupeSon : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         VRTK_BodyPhysics body = other.gameObject.GetComponent<VRTK_BodyPhysics>();
-        if (body)
-        {
+        if (body != null) {
             foreach (var source in sources){
-                Debug.Log("foreach");
                 source.enabled = false;
             }
+
+            if (GetComponent<AudioSource>() != null)
+                GetComponent<AudioSource>().enabled = true;
         }
        
     }
@@ -21,13 +22,13 @@ public class CoupeSon : MonoBehaviour {
     private void OnTriggerExit(Collider other)
     {
         VRTK_BodyPhysics body = other.gameObject.GetComponent<VRTK_BodyPhysics>();
-        if (body)
-        {
-            foreach (var source in sources)
-            {
-                Debug.Log("foreach exit");
+        if (body != null) {
+            foreach (var source in sources) {
                 source.enabled = true;
             }
+
+            if (GetComponent<AudioSource>() != null)
+                GetComponent<AudioSource>().enabled = false;
         }
     }
 }
