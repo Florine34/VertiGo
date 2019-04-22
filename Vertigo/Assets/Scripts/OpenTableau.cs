@@ -29,6 +29,7 @@ public class OpenTableau : MonoBehaviour {
                 if (Fusil != null && Fusil.GetComponent<VRTK_InteractableObject>() != null) {
                     Fusil.GetComponent<VRTK_InteractableObject>().isGrabbable = true;
                 }
+                this.GetComponent<AudioSource>().enabled = true;
             }
         }
 
