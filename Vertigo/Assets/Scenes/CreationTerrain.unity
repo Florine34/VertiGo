@@ -748,7 +748,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: da8d6f3e1bf976449b69a9410559dafd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1681,6 +1681,7 @@ Transform:
   m_Children:
   - {fileID: 370689200}
   - {fileID: 1184644821}
+  - {fileID: 1964179066}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2962,7 +2963,7 @@ Transform:
   - {fileID: 158158827}
   - {fileID: 967212912}
   m_Father: {fileID: 1184644821}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &203608271
 PrefabInstance:
@@ -4001,6 +4002,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1026562961034138981, guid: 3a7ad04130e8eb04cbce35b9a6fa6924,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a7ad04130e8eb04cbce35b9a6fa6924, type: 3}
@@ -6336,7 +6342,7 @@ Transform:
   m_LocalScale: {x: 6.9349866, y: 0.959, z: 4.1209345}
   m_Children: []
   m_Father: {fileID: 1184644821}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &430996277
 GameObject:
@@ -6485,7 +6491,7 @@ RectTransform:
   m_Children:
   - {fileID: 1014054071}
   m_Father: {fileID: 1184644821}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -15150,7 +15156,7 @@ Transform:
   - {fileID: 599863234}
   - {fileID: 2106804118}
   m_Father: {fileID: 1184644821}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &989829478
 GameObject:
@@ -17196,12 +17202,12 @@ Transform:
   - {fileID: 1884720309}
   - {fileID: 1518377849}
   - {fileID: 1005218469}
+  - {fileID: 2138008401}
   - {fileID: 987958844}
   - {fileID: 194895916}
   - {fileID: 2091743874}
   - {fileID: 469678944}
   - {fileID: 427173330}
-  - {fileID: 1964179066}
   - {fileID: 1036435327}
   m_Father: {fileID: 97833047}
   m_RootOrder: 1
@@ -18537,6 +18543,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1026562961034138981, guid: 3a7ad04130e8eb04cbce35b9a6fa6924,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a7ad04130e8eb04cbce35b9a6fa6924, type: 3}
 --- !u!1 &1281752588 stripped
@@ -19156,7 +19167,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: da8d6f3e1bf976449b69a9410559dafd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -25588,7 +25599,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: da8d6f3e1bf976449b69a9410559dafd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26555,7 +26566,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: da8d6f3e1bf976449b69a9410559dafd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -32414,8 +32425,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1964179065}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 4.5265393, y: -0.25429964, z: -24.659788}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 51.21979, y: 0.49570036, z: 51.996544}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 355033613}
@@ -32423,9 +32434,8 @@ Transform:
   - {fileID: 1415395490}
   - {fileID: 866906100}
   - {fileID: 1725758315}
-  - {fileID: 2138008401}
-  m_Father: {fileID: 1184644821}
-  m_RootOrder: 10
+  m_Father: {fileID: 97833047}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1969638338
 GameObject:
@@ -35940,7 +35950,7 @@ Transform:
   m_LocalScale: {x: 9.741945, y: 5.2628264, z: 8.284391}
   m_Children: []
   m_Father: {fileID: 1184644821}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2091743875
 MonoBehaviour:
@@ -36750,7 +36760,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d438ba19d0c0c76488e6d6820431222e, type: 2}
+  - {fileID: 2100000, guid: da8d6f3e1bf976449b69a9410559dafd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -36979,13 +36989,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138008400}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -79.27, y: 14.5, z: -16.79}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -12.263453, y: 14.245701, z: 54.610214}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1267917513}
   - {fileID: 1745116011}
-  m_Father: {fileID: 1964179066}
+  m_Father: {fileID: 1184644821}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2138782955
@@ -37103,6 +37113,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1026562961034138981, guid: 3a7ad04130e8eb04cbce35b9a6fa6924,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a7ad04130e8eb04cbce35b9a6fa6924, type: 3}
 --- !u!1 &2145455790 stripped
@@ -37201,6 +37216,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1026562961034138981, guid: 3a7ad04130e8eb04cbce35b9a6fa6924,
+        type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a7ad04130e8eb04cbce35b9a6fa6924, type: 3}
