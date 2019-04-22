@@ -21,6 +21,8 @@ TagManager:
   - Torso
   - Head
   - hand
+  - lb_bird
+  - Fusil
   layers:
   - Default
   - TransparentFX
