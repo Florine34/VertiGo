@@ -7,11 +7,8 @@ public class SonWin : MonoBehaviour
     public AudioClip clip;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            this.GetComponent<AudioSource>().PlayOneShot(clip);
-            this.enabled = false;
+        
+     this.GetComponent<AudioSource>().enabled = true;
 
-        }
     }
 }
