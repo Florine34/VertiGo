@@ -17,7 +17,7 @@ public class Rise : MonoBehaviour {
         }
     }
 
-    private void OnTriggerExit(Collider other) {
+    private void OnTriggernExit(Collider other) {
 
         if (other.GetComponent<VRTK_BodyPhysics>() != null) {
             transform.parent.GetComponent<Animator>().SetBool("rise", false);

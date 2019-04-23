@@ -7,6 +7,7 @@ using VRTK;
 public class OpenTableau : MonoBehaviour {
     public Animator animTab;
     public GameObject Fusil;
+    public GameObject tableau; 
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class OpenTableau : MonoBehaviour {
                     Fusil.GetComponent<VRTK_InteractableObject>().isGrabbable = true;
                 }
                 this.GetComponent<AudioSource>().enabled = true;
+                tableau.GetComponent<AudioSource>().enabled = true;
             }
         }
 

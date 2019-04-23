@@ -6,17 +6,22 @@ using UnityEngine;
 
 public class Respawn : MonoBehaviour { 
     public GameObject respawn;
-    public GameObject perso;
-    private void OnCollisionEnter(Collision collision)
+    public GameObject respawnFusil;
+
+    
+    private void OnTriggerEnter(Collider collision)
     {
-        if (collision.transform.CompareTag("Player"))
+        Debug.Log("Dans OnTriggerEnter");
+        if (collision.CompareTag("Player"))
         {
             collision.transform.position = respawn.transform.position;
 
         }
-        else if (collision.transform.CompareTag("Fusil"))
+        if (collision.CompareTag("Fusil"))
         {
-            collision.transform.position = perso.transform.position;
+            Debug.Log("Dans if fusil");
+            collision.transform.position = respawnFusil.transform.position;
+           
         }
     }
 }
